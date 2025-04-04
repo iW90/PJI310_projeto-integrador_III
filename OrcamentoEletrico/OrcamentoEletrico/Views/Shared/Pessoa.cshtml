@@ -1,0 +1,29 @@
+﻿@model OrcamentoEletricoApp.Models.Requests.PessoaRequest
+
+@{
+    ViewData["Title"] = "Informações para Contato";
+}
+
+<div class="container">
+    <h1>Contato</h1>
+    <form id="pessoaForm">
+        <label for="nomeCompleto">Nome Completo:</label>
+        <input type="text" id="nomeCompleto" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone">
+
+        <label for="endereco">Endereço:</label>
+        <input type="text" id="endereco">
+
+        <button type="submit">Próximo</button>
+    </form>
+    <div id="responseMessage"></div>
+</div>
+
+@section Scripts {
+    <script src="~/js/pessoa.js"></script>
+}

@@ -1,0 +1,46 @@
+@OrcamentoEletrico_HostAddress = http://localhost:5071
+
+### Cadastrar Pessoa
+POST {{OrcamentoEletrico_HostAddress}}/api/pessoa/cadastrar-pessoa
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nomeCompleto": "Joao da Silva",
+  "email": "joao.silva@example.com",
+  "telefone": "(11) 98765-4321",
+  "endereco": "Rua Exemplo, 123"
+}
+
+### Resposta esperada
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "pessoaId": 1
+}
+
+### Cadastrar Imovel
+POST {{OrcamentoEletrico_HostAddress}}/api/orcamento/gerar-orcamento
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nomeCompleto": "Joao da Silva",
+  "email": "joao.silva@example.com",
+  "telefone": "(11) 98765-4321",
+  "endereco": "Rua Exemplo, 123"
+
+  "pessoaId": 1,
+  "metrosQuadrados": 40,
+  "numeroDePavimentos": 1,
+  "classificacao": 1
+}
+
+### Resposta esperada
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "valorOrcamento": 320
+}

@@ -1,0 +1,30 @@
+﻿@model OrcamentoEletricoApp.Models.Requests.ImovelRequest
+
+@{
+    ViewData["Title"] = "Orçamento";
+}
+
+<div class="container">
+    <h1>Gerar Orçamento</h1>
+    <form id="orcamentoForm">
+        <label for="metrosQuadrados">Metros Quadrados:</label>
+        <input type="number" id="metrosQuadrados" min="2" required>
+
+        <label for="numeroDePavimentos">Número de Pavimentos:</label>
+        <input type="number" id="numeroDePavimentos" min="1" required>
+
+        <label for="classificacao">Classificação do Imóvel:</label>
+        <select id="classificacao" required>
+            <option value="1">Baixo</option>
+            <option value="2">Médio</option>
+            <option value="3">Alto</option>
+        </select>
+
+        <button type="submit">Gerar Orçamento</button>
+    </form>
+    <div id="responseMessage"></div>
+</div>
+
+@section Scripts {
+    <script src="~/js/orcamento.js"></script>
+}
