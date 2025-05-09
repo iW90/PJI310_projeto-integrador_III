@@ -9,6 +9,12 @@ using OrcamentoEletricoInfra.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configurar o Kestrel para escutar externamente (necessário no Docker)
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5000);
+});
+
 // BACKEND CONFIG
 
 // Configure AutoMapper.
@@ -24,7 +30,7 @@ builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 builder.Services.AddScoped<IOrcamentoRepository, OrcamentoRepository>();
 
 // Configura a string de conexao (Defina uma: "DefaultConnectionMySQL")
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionMySQL");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Configura o DbContext com o MySQL
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -32,10 +38,16 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
 builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
+
+// Apply migrations automatically
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

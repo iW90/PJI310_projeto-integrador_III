@@ -1,0 +1,9 @@
+bin/
+obj/
+*.user
+*.suo
+*.md
+.vscode/
+*.db
+*.http
+.DS_Store
