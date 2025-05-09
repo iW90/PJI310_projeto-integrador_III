@@ -20,13 +20,13 @@ Substitua o valor "admin" do User e Password pelos correspondentes do seu banco 
  
 Executar comandos abaixo na raiz da aplicação (onde fica a solution OrcamentoEletrico.sln):
 
-`\PJI240_projeto-integrador_II\OrcamentoEletrico`
+`\PJI240_projeto-integrador_III\OrcamentoEletrico`
 
 
 - Criar um migration (configuração do banco)
 
 	```sh
-	dotnet ef migrations add InitialCreate --startup-project./OrcamentoEletrico/OrcamentoEletrico.csproj -p ./OrcamentoEletricoInfra/OrcamentoEletricoInfra.csproj
+	dotnet ef migrations add InitialCreate --startup-project ./OrcamentoEletrico/OrcamentoEletrico.csproj -p ./OrcamentoEletricoInfra/OrcamentoEletricoInfra.csproj
 	```
 
 - Atualizar banco com essa nova configuração:

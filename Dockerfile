@@ -7,24 +7,15 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copia todos os .csproj
-COPY OrcamentoEletrico/OrcamentoEletrico.csproj OrcamentoEletrico/
-COPY OrcamentoEletrico/OrcamentoEletricoApp/OrcamentoEletricoApp.csproj OrcamentoEletrico/OrcamentoEletricoApp/
-COPY OrcamentoEletrico/OrcamentoEletricoDomain/OrcamentoEletricoDomain.csproj OrcamentoEletrico/OrcamentoEletricoDomain/
-COPY OrcamentoEletrico/OrcamentoEletricoInfra/OrcamentoEletricoInfra.csproj OrcamentoEletrico/OrcamentoEletricoInfra/
-COPY OrcamentoEletrico/OrcamentoEletricoTest/OrcamentoEletricoTest.csproj OrcamentoEletrico/OrcamentoEletricoTest/
+# Copiando toda a pasta app para o container
+COPY app/ ./app/
 
 # Restaura os pacotes
-RUN dotnet restore "OrcamentoEletrico/OrcamentoEletrico.csproj"
-
-# Copia tudo e compila
-COPY . .
-WORKDIR "/src/OrcamentoEletrico"
-RUN dotnet build "OrcamentoEletrico.csproj" -c Release -o /app/build
+RUN dotnet restore ./app/OrcamentoEletrico.sln
 
 # Publica o app
 FROM build AS publish
-RUN dotnet publish "OrcamentoEletrico.csproj" -c Release -o /app/publish
+RUN dotnet publish ./app/OrcamentoEletrico/OrcamentoEletrico.csproj -c Release -o /app/publish
 
 # Imagem final
 FROM base AS final
