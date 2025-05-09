@@ -14,7 +14,10 @@
     };
 
     try {
-        const response = await fetch('https://localhost:7285/api/Pessoa/cadastrar-pessoa', {
+        const apiBaseUrl = window.location.hostname.includes("localhost")
+            ? "https://localhost:7285"
+            : "https://orcamentos-eletricos.up.railway.app";
+            const response = await fetch(`=${apiBaseUrl}/api/Pessoa/cadastrar-pessoa`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

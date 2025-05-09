@@ -18,7 +18,10 @@
         };
 
         try {
-            const response = await fetch('https://localhost:7285/api/Orcamento/gerar-orcamento', {
+            const apiBaseUrl = window.location.hostname.includes("localhost")
+                ? "https://localhost:7285"
+                : "https://orcamentos-eletricos.up.railway.app";
+            const response = await fetch(`${apiBaseUrl}/api/Orcamento/gerar-orcamento`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
