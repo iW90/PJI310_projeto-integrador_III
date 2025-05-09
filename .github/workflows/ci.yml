@@ -21,4 +21,6 @@ jobs:
           dotnet-version: '8.0'
 
       - name: Verifica build do projeto
-        run: dotnet build --configuration Release
+        run: |
+          cd app  # Navega até a pasta 'app' onde está a solução ou projeto
+          dotnet build --configuration Release OrcamentoEletrico.sln  # Compila a solução
