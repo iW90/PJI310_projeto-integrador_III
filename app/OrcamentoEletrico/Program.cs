@@ -42,7 +42,7 @@ string connectionString;
 
 if (!string.IsNullOrEmpty(host) && !string.IsNullOrEmpty(database) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
 {
-    connectionString = $"Server={host};Port={port};Database={database};Uid={username};Pwd={password};Connect Timeout=60;";
+    connectionString = $"Server={host};Port={port};Database={database};Uid={username};Pwd={password};Pooling=true;Connect Timeout=180;Command Timeout=180;";
 }
 else
 {
