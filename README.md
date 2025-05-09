@@ -6,6 +6,8 @@ Projeto integrador realizado para a Univesp
 
 Sistema para cadastro de pessoas e geração de orçamentos elétricos. Desenvolvido em ASP.NET Core 8.0, com MySQL e hospedado via Railway.
 
+> Acesse em: https://orcamentos-eletricos.up.railway.app/
+
 ### 🚀 Tecnologias
 
 - [.NET 8.0](https://dotnet.microsoft.com/)
