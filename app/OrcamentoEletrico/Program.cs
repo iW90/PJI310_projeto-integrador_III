@@ -38,17 +38,11 @@ var database = Environment.GetEnvironmentVariable("MYSQLDATABASE");
 var username = Environment.GetEnvironmentVariable("MYSQLUSER");
 var password = Environment.GetEnvironmentVariable("MYSQLPASSWORD");
 
-Console.WriteLine("MySQL Connection Variables:");
-Console.WriteLine($"Host: {host}");
-Console.WriteLine($"Port: {port}");
-Console.WriteLine($"Database: {database}");
-Console.WriteLine($"User: {username}");
-
 string connectionString;
 
 if (!string.IsNullOrEmpty(host) && !string.IsNullOrEmpty(database) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
 {
-    connectionString = $"Server={host};Port={port};Database={database};Uid={username};Pwd={password};";
+    connectionString = $"Server={host};Port={port};Database={database};Uid={username};Pwd={password};Connect Timeout=60;";
 }
 else
 {
