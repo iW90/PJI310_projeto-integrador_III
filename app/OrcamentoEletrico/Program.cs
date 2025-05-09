@@ -57,6 +57,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 
+// Setup CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ProductionCorsPolicy", policy =>
+    {
+        policy.WithOrigins("https://orcamentos-eletricos.up.railway.app")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
 var app = builder.Build();
 
 // Apply migrations automatically
@@ -79,6 +91,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors("ProductionCorsPolicy");
 
 app.UseAuthorization();
 
