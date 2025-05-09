@@ -6,6 +6,8 @@ using OrcamentoEletricoDomain.Interfaces.Repositories;
 using OrcamentoEletricoDomain.Interfaces.Services;
 using OrcamentoEletricoInfra.Database;
 using OrcamentoEletricoInfra.Repositories;
+using MySql.Data.MySqlClient;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,8 +32,6 @@ builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 builder.Services.AddScoped<IOrcamentoRepository, OrcamentoRepository>();
 
 // Configura a string de conexao (Defina uma: "DefaultConnectionMySQL para local, ou DefaultConnection para Railway")
-// var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionMySQL");
-
 var host = Environment.GetEnvironmentVariable("MYSQLHOST");
 var port = Environment.GetEnvironmentVariable("MYSQLPORT") ?? "3306";
 var database = Environment.GetEnvironmentVariable("MYSQLDATABASE");
@@ -48,7 +48,16 @@ string connectionString;
 
 if (!string.IsNullOrEmpty(host) && !string.IsNullOrEmpty(database) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
 {
-    connectionString = $"Server={host}; Port={port}; Database={database}; Uid={username}; Pwd={password};";
+    var builder = new MySqlConnectionStringBuilder
+    {
+        Server = host,
+        Port = uint.Parse(port), // O MySQL espera o número da porta como uint
+        Database = database,
+        UserID = username,
+        Password = password
+    };
+
+    connectionString = builder.ConnectionString;
 }
 else
 {
