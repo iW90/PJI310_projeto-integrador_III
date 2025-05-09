@@ -29,8 +29,25 @@ builder.Services.AddScoped<IOrcamentoService, OrcamentoService>();
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 builder.Services.AddScoped<IOrcamentoRepository, OrcamentoRepository>();
 
-// Configura a string de conexao (Defina uma: "DefaultConnectionMySQL")
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// Configura a string de conexao (Defina uma: "DefaultConnectionMySQL para local, ou DefaultConnection para Railway")
+// var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionMySQL");
+
+var host = Environment.GetEnvironmentVariable("MYSQLHOST");
+var port = Environment.GetEnvironmentVariable("MYSQLPORT") ?? "3306";
+var database = Environment.GetEnvironmentVariable("MYSQLDATABASE");
+var username = Environment.GetEnvironmentVariable("MYSQLUSER");
+var password = Environment.GetEnvironmentVariable("MYSQLPASSWORD");
+
+string connectionString;
+
+if (!string.IsNullOrEmpty(host) && !string.IsNullOrEmpty(database) && !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(password))
+{
+    connectionString = $"Server={host};Port={port};Database={database};Uid={username};Pwd={password};";
+}
+else
+{
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnectionMySQL");
+}
 
 // Configura o DbContext com o MySQL
 builder.Services.AddDbContext<AppDbContext>(options =>
